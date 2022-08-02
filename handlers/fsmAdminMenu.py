@@ -32,8 +32,6 @@ async def fsm_start(message: types.Message):
 
 async def photo_dish(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
-        data['id'] = message.from_user.id
-        data["username"] = f"@{message.from_user.username}"
         data["photo"] = message.photo[0].file_id
     await FSMAdmin.next()
     await message.answer('добавь название блюда')
@@ -64,15 +62,13 @@ async def price_dish(message: types.Message, state: FSMContext):
                 await bot.send_photo(message.from_user.id, data['photo'],
                                      caption=f"Name: {data['name']}\n"
                                              f"Description: {data['description']}\n"
-                                             f"Price: {data['price']}\n\n"
-                                             f"{data['username']}")
+                                             f"Price: {data['price']}\n\n")
 
             await bot_dp.sql_command_insert(state)
             await state.finish()
             await message.answer('Благодарю, теперь у нас присутствует это блюдо')
     except:
         await message.answer('ЦЕНУ ЦИФРАМИ УКАЗЫВАЮТ.')
-
 
 
 

@@ -6,26 +6,25 @@ from config import bot
 
 
 def sql_create():
-    global dp, cursor
-    dp = sqlite3.connect('bot.sqlite3')
-    cursor = dp.cursor()
+    global db, cursor
+    db = sqlite3.connect('bot.sqlite3')
+    cursor = db.cursor()
 
-    if dp:
+    if db:
         print("база данных подключена!")
 
 
-    dp.execute("CREATE TABLE IF NOT EXISTS menu"
-               "(name TEXT PRIMARY KEY, username TEXT,"
-               "photo TEXT, description TEXT,"
+    db.execute("CREATE TABLE IF NOT EXISTS menu"
+               "(photo TEXT, name TEXT PRIMARY KEY, description TEXT,"
                "price INTEGER)")
-    dp.commit()
+    db.commit()
 
 
 async def sql_command_insert(state):
     async with state.proxy() as data:
         cursor.execute("INSERT INTO menu VALUES"
-                       "(?, ?, ?, ?, ?)", tuple(data.values()))
-        dp.commit()
+                       "(?, ?, ?, ?)", tuple(data.values()))
+        db.commit()
 
 
 async def sql_command_random(message):
@@ -45,7 +44,7 @@ async def sql_command_all():
 
 async def sql_command_delete(id):
     cursor.execute("DELETE FROM menu WHERE id == ?", (id,))
-    dp.commit()
+    db.commit()
 
 
 async def sql_commands_get_all_id():
