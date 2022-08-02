@@ -15,18 +15,14 @@ async def go_to():
     await bot.send_message(chat_id=chat_id, text='помой машину')
 
 
-async def work():
-    photo = open("media/milashka.jpg", "rb")
-    await bot.send_photo(chat_id=chat_id, photo=photo, caption="пора практиковаться!")
-
-
 async def scheduler():
-    aioschedule.every().monday.at("18:30").do(go_to)
-    aioschedule.every().day.at("14:30").do(work)
+    aioschedule.every().friday.at("03:28").do(go_to)
+    aioschedule.every().monday.at("03:28").do(go_to)
+
 
     while True:
         await aioschedule.run_pending()
-        await asyncio.sleep(3)
+        await asyncio.sleep(5)
 
 
 def register_handler_notification(dp: Dispatcher):
