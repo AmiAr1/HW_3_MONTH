@@ -56,8 +56,9 @@ async def parser_news(message: types.Message):
     for item in data:
         await bot.send_message(
             message.from_user.id,
-            f"{item['title']}\n"
-            f"{item['link']}"
+            f"{item['image']}\n"
+            f"{item['link']}\n"
+            f"{item['text']}\n"
         )
 
 

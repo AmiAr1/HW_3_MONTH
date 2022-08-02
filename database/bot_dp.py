@@ -1,5 +1,3 @@
-
-
 import random
 import sqlite3
 from config import bot
@@ -12,7 +10,6 @@ def sql_create():
 
     if db:
         print("база данных подключена!")
-
 
     db.execute("CREATE TABLE IF NOT EXISTS menu"
                "(photo TEXT, name TEXT PRIMARY KEY, description TEXT,"
@@ -31,11 +28,10 @@ async def sql_command_random(message):
     result = cursor.execute("SELECT * FROM menu").fetchall()
     random_user = random.choice(result)
 
-    await bot.send_photo(message.from_user.id, random_user[2],
-                         caption=f"Name: {random_user[3]}\n"
-                                 f"Description: {random_user[4]}\n"
-                                 f"Price: {random_user[5]}\n\n"
-                                 f"{random_user[1]}")
+    await bot.send_photo(message.from_user.id, random_user[0],
+                         caption=f"Name: {random_user[1]}\n"
+                                 f"Description: {random_user[2]}\n"
+                                 f"Price: {random_user[3]}\n\n")
 
 
 async def sql_command_all():
