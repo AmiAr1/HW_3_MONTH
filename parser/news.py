@@ -4,8 +4,8 @@ from bs4 import BeautifulSoup
 URL = "https://doramy.top/"
 
 HEADERS = {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:97.0) Gecko/20100101 Firefox/97.0"
 }
 
 
@@ -21,12 +21,23 @@ def get_data(html):
     for item in items:
         news.append({
             'title': item.find("span").getText(),
+<<<<<<< HEAD
             "link": item.find("a", class_="card-img-overlay").get("href"),
             "image": item.find('img', class_="card-img").get("src"),
             'text': item.find("a", class_="card-img-overlay").get_text()
+=======
+            "link":item.find("a", class_="card-img-overlay").get("href"),
+            "image": item.find('img', class_="card-img").get("src"),
+            'text':item.find("a",class_="card-img-overlay").get_text()
+
+>>>>>>> fcf4af38bfc263dfead10c03931086fa6aa1198d
 
         })
     return news
+
+# html = get_html(URL)
+# print(get_data(html.text))
+
 
 
 # html = get_html(URL)
